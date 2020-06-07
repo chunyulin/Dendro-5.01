@@ -34,6 +34,7 @@ namespace nlsm
             if(parFile.find("NLSM_ELE_ORDER")!=parFile.end())
                 nlsm::NLSM_ELE_ORDER = parFile["NLSM_ELE_ORDER"];
 
+            nlsm::NLSM_TIME_STEP_OUTPUT_FREQ=parFile["NLSM_TIME_STEP_OUTPUT_FREQ"];
             nlsm::NLSM_IO_OUTPUT_FREQ=parFile["NLSM_IO_OUTPUT_FREQ"];
             nlsm::NLSM_REMESH_TEST_FREQ=parFile["NLSM_REMESH_TEST_FREQ"];
             nlsm::NLSM_CHECKPT_FREQ=parFile["NLSM_CHECKPT_FREQ"];
@@ -1461,7 +1462,7 @@ namespace nlsm
             if(!rank)outfile << std::left << std::setw(nameWidth) << std::setfill(separator)<<t_stat_g[2]<<std::endl;
 
 
-
+/*
             t_stat=t_rhs_a.snap;
             computeOverallStats(&t_stat, t_stat_g, comm);
             if(!rank)outfile << std::left << std::setw(nameWidth) << std::setfill(separator) <<"  --compute_rhs_a ";
@@ -1518,6 +1519,7 @@ namespace nlsm
             if(!rank)outfile << std::left << std::setw(nameWidth) << std::setfill(separator)<<t_stat_g[0];
             if(!rank)outfile << std::left << std::setw(nameWidth) << std::setfill(separator)<<t_stat_g[1];
             if(!rank)outfile << std::left << std::setw(nameWidth) << std::setfill(separator)<<t_stat_g[2]<<std::endl;
+*/
 
 
 

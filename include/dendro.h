@@ -36,9 +36,11 @@
 
 
 //#define DendroIntL unsigned int
+#ifdef __SIZEOF_INT128__
 typedef unsigned __int128 DendroUInt_128;
-
-
+#else
+typedef unsigned long long DendroUInt_128;
+#endif
 
 
 // mesh.h # defines.

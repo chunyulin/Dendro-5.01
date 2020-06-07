@@ -31,7 +31,7 @@ int main (int argc, char** argv)
     MPI_Comm_rank(comm,&rank);
     MPI_Comm_size(comm,&npes);
 
-    nlsm::timer::initFlops();
+    //nlsm::timer::initFlops();
 
     nlsm::timer::total_runtime.start();
 
@@ -44,11 +44,21 @@ int main (int argc, char** argv)
 
     if(rank==1|| npes==1)
     {
+        std::cout<<"# Threads detected: "<< omp_get_max_threads() << std::endl;
+        #ifdef USE_64BIT_INDICES
+        std::cout<<"USE_64BIT_INDICES defined for DendroInt." << std::endl;
+        #endif
+        #ifdef __SIZEOF_INT128__
+        std::cout<<"__SIZEOF_INT128__ detected." << std::endl;
+        #endif
+        std::cout<<"Sizeof(int, DendroIntL, DendroUInt_128): " << sizeof(int) << " " << sizeof(DendroIntL) << " " << sizeof(DendroUInt_128) <<std::endl;
+
         std::cout<<"parameters read: "<<std::endl;
 
         std::cout<<YLW<<"\tnpes :"<<npes<<NRM<<std::endl;
         std::cout<<YLW<<"\tNLSM_ELE_ORDER :"<<nlsm::NLSM_ELE_ORDER<<NRM<<std::endl;
         std::cout<<YLW<<"\tNLSM_DIM :"<<nlsm::NLSM_DIM<<NRM<<std::endl;
+        std::cout<<YLW<<"\tNLSM_TIME_STEP_OUTPUT_FREQ :"<<nlsm::NLSM_TIME_STEP_OUTPUT_FREQ<<NRM<<std::endl;
         std::cout<<YLW<<"\tNLSM_IO_OUTPUT_FREQ :"<<nlsm::NLSM_IO_OUTPUT_FREQ<<NRM<<std::endl;
         std::cout<<YLW<<"\tNLSM_REMESH_TEST_FREQ :"<<nlsm::NLSM_REMESH_TEST_FREQ<<NRM<<std::endl;
         std::cout<<YLW<<"\tNLSM_CHECKPT_FREQ :"<<nlsm::NLSM_CHECKPT_FREQ<<NRM<<std::endl;
@@ -326,5 +336,7 @@ int main (int argc, char** argv)
     //delete mesh;
     MPI_Finalize();
 
+    if(!rank) std::cout << "Total : "<< nlsm::timer::total_runtime.snap << " secs." << std::endl ;
+    if(!rank) std::cout << "RK    : "<< nlsm::timer::t_rkSolve.snap << " secs." << std::endl ;
     return 0;
 }

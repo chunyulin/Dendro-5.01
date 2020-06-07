@@ -87,7 +87,11 @@ double stat_property[3]={};
 #endif
 
 
+#ifdef __SIZEOF_INT128__
 typedef unsigned __int128 uint128_t;
+#else
+typedef unsigned long long uint128_t;
+#endif
 
 #ifdef DIM_2
     #define NUM_CHILDREN 4
@@ -173,18 +177,18 @@ struct OctreeComp
                || ((first.getLevel()==other.getLevel()) && (first.getX() == other.getX()) && (first.getY() == other.getY())  && (first.getZ() < other.getZ())));*/
 
 
-         /*return (((first.getLevel()==other.getLevel()) || (first.getLevel()<other.getLevel()))
-                 && ((first.getLevel()!=other.getLevel()) || ((first.getX() == other.getX())) || (first.getX() > other.getX()))
-                 && ((first.getLevel()!=other.getLevel()) || (first.getX() != other.getX()) || (first.getY() == other.getY()) || (first.getY() > other.getY()))
-                 && ((first.getLevel()!=other.getLevel()) || (first.getX() != other.getX()) || (first.getY() != other.getY())  || (first.getZ() > other.getZ())));*/
-
-
+#ifndef __SIZEOF_INT128__
+         return (   ((first.getLevel()<=other.getLevel()) )
+                 && ((first.getLevel()!=other.getLevel()) || ((first.getX() <= other.getX())) )
+                 && ((first.getLevel()!=other.getLevel()) || (first.getX() != other.getX()) || (first.getY() <= other.getY()) )
+                 && ((first.getLevel()!=other.getLevel()) || (first.getX() != other.getX()) || (first.getY() != other.getY())  || (first.getZ() > other.getZ())));
+#else
         uint128_t a1=0;
         uint128_t a2=0;
         a1=(((uint128_t)first.getLevel())<<96u) | (((uint128_t)first.getX())<<64u) | (((uint128_t)first.getY())<<32u) |(((uint128_t)first.getZ()));
         a2=(((uint128_t)other.getLevel())<<96u) | (((uint128_t)other.getX())<<64u) | (((uint128_t)other.getY())<<32u) |(((uint128_t)other.getZ()));
         return a1<a2;
-
+#endif
 /*
         if(first.getLevel()!=other.getLevel())
         {
