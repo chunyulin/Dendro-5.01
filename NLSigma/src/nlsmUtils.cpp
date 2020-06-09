@@ -278,7 +278,6 @@ namespace nlsm
         const double x=GRIDX_TO_X(xx1);
         const double y=GRIDY_TO_Y(yy1);
         const double z=GRIDZ_TO_Z(zz1);
-
         const double amp1 = nlsm::NLSM_ID_AMP1;
         const double amp2 = nlsm::NLSM_ID_AMP2;
         const double delta1 = nlsm::NLSM_ID_DELTA1;
@@ -847,7 +846,6 @@ namespace nlsm
         void profileInfo(const char* filePrefix,const ot::Mesh* pMesh)
         {
 
-
             int activeRank,activeNpes,globalRank,globalNpes;
 
             MPI_Comm commActive;
@@ -918,7 +916,6 @@ namespace nlsm
             if(!rank)outfile << std::left << std::setw(nameWidth) << std::setfill(separator)<<t_stat_g[0];
             if(!rank)outfile << std::left << std::setw(nameWidth) << std::setfill(separator)<<t_stat_g[1];
             if(!rank)outfile << std::left << std::setw(nameWidth) << std::setfill(separator)<<t_stat_g[2]<<std::endl;
-
 
             t_stat=t_f2o.seconds;
             computeOverallStats(&t_stat, t_stat_g, comm);
@@ -1058,7 +1055,6 @@ namespace nlsm
             if(!rank)outfile << std::left << std::setw(nameWidth) << std::setfill(separator)<<t_stat_g[0];
             if(!rank)outfile << std::left << std::setw(nameWidth) << std::setfill(separator)<<t_stat_g[1];
             if(!rank)outfile << std::left << std::setw(nameWidth) << std::setfill(separator)<<t_stat_g[2]<<std::endl;
-
 
             if(!rank) outfile.close();
 

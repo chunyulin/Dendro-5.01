@@ -328,12 +328,14 @@ int main (int argc, char** argv)
 
     nlsm::timer::t_rkSolve.start();
     rk_nlsm.rkSolve();
-    nlsm::timer::t_rkSolve.stop();
-
-    nlsm::timer::total_runtime.stop();
-    rk_nlsm.freeMesh();
+    
+    //nlsm::timer::t_rkSolve.stop();
+    //nlsm::timer::total_runtime.stop();
     //nlsm::timer::profileInfo(nlsm::NLSM_PROFILE_FILE_PREFIX.c_str(),mesh);
+
+    rk_nlsm.freeMesh();
     //delete mesh;
+    
     MPI_Finalize();
 
     if(!rank) std::cout << "Total : "<< nlsm::timer::total_runtime.snap << " secs." << std::endl ;

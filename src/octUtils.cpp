@@ -457,6 +457,7 @@ int function2Octree(std::function<void(double,double,double,double*)> fx,const u
     num_intersected=1;
 
     ot::TreeNode root(m_uiDim,m_uiMaxDepth);
+if(!rank)std::cout << "Begin refine parallel....." << std::endl;
 
     while ( (num_intersected > 0 ) && (depth < maxDepth) ) {
         if(!rank)std::cout << "Depth: " << depth << " n = " << nodes.size() << std::endl;

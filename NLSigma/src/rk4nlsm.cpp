@@ -1085,6 +1085,11 @@ namespace ode
             }
 
 
+    nlsm::timer::t_rkSolve.stop();
+    nlsm::timer::total_runtime.stop();
+    nlsm::timer::profileInfo(nlsm::NLSM_PROFILE_FILE_PREFIX.c_str(),m_uiMesh);
+
+
         }
 
 
@@ -1146,8 +1151,6 @@ namespace ode
 
 
             }
-
-
 
         }
 
